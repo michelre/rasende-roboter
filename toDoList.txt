@@ -1,0 +1,3 @@
+
+//Tarik - 02/12 - 22H13:
+- Bug: Après déplacement d'un robot, et qu'on sélectionne un robot déjà sélectionné, impossible de reselectionner un autre viable.

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr">
+    <head>
+        <title>Rasende Roboter</title>
+        <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600" rel="stylesheet" type="text/css" />
+        <link href="css/global.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="css/grid.css" />
+        <!--[if lte IE 8]><script src="js/html5shiv.js"></script><![endif]-->
+        <script src="js/lib/jquery.min.js"></script>
+        <noscript>
+            <link rel="stylesheet" href="css/style.css" />
+        </noscript>
+        <!--[if lte IE 8]><link rel="stylesheet" href="css/ie8.css" /><![endif]-->
+    </head>
+
+    <body class="homepage" onload="init()">
+        <div id="headerBar1"> 
+            <i id='gameInfos_link'>Game Informations</i> 
+        </div>
+        <input id="login" type="hidden" value="__LOGIN__"/>
+        <input id="idGame" type="hidden" value="__IDGAME__"/>
+
+
+        <div id='gameInfos_block' style='display:none'>
+            <li>Partie:  __IDGAME__ __STATE__</li>
+            <li>Participants:</li> 
+            <ul style='font-size:0.8em; margin-top:0px' id="lesParticipants" />
+            <div class="info-win">
+                <p><span class="winner-login"></span> a gagné en <span class="winner-result"></span>coups</p>
+            </div>
+        </div>
+
+        <section>
+            <section id="partie">
+                <div id="mainDiv">
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+                    </svg>
+                </div>
+            </section>
+        </section>
+
+
+
+        <footer>
+            <p>Vous êtes connecté en tant que <strong>__LOGIN__</strong></p>
+            <i>Mini-projet IHM de M2 Miage</i>
+        </footer>
+
+        <script>
+            var SA = {
+                "endpoint": "192.168.0.10"// --> A changer en fonction de l'adresse du serveur
+            };
+            //Tarik: Ce sera mis ultérieurement dans le fichier .JS adéquat
+            $("#gameInfos_link").hover(function() {
+                $("#gameInfos_block").toggle("slow");
+            });
+        </script>
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="js/logged.js"></script>
+
+        <script type="text/javascript" src ="js/services-ajax.js"></script>
+        <script type="text/javascript" src ="js/utils.js"></script>
+        <script type="text/javascript" src ="js/game-deplacements.js"></script>
+        <script type="text/javascript" src ="js/init-game.js"></script>
+    </body>
+</html>

@@ -1,0 +1,134 @@
+<g xmlns="http://www.w3.org/2000/svg" class="robot" transform="translate(300,300) scale(1,1)">
+
+   <g class="corps" >
+      <rect x="-80" y="-160" rx="70" width="160" height="230" fill="black" /> 
+      <rect x="-80" y="-50" rx="30" width="160" height="160" fill="black" /> 
+   </g>
+
+   <g class="cornes">
+      <rect x="-120" y="-105" rx="5" width="240" height="25" fill="black" />
+      <polyline fill="black" points="0,0 -5,20 5,20" transform="translate(-98,-150) scale(2.5,2.5)" /> 
+      <polyline fill="black" points="0,0 -5,20 5,20" transform="translate(98,-150) scale(2.5,2.5)" /> 
+      <polyline fill="black" points="0,0 -5,20 5,20" transform="translate(70,-185) scale(2.5,2.5) rotate(25)" /> 
+      <polyline fill="black" points="0,0 -5,20 5,20" transform="translate(-70,-185) scale(2.5,2.5) rotate(-25)" /> 
+   </g>
+
+   <g class="bras">
+      <rect x="-140" y="-65" rx="10" width="280" height="36" fill="black" />
+      <rect x="-18" y="-50" rx="10" width="36" height="100" fill="black" transform="translate(-122,-10)" /> 
+      <rect x="-18" y="-50" rx="10" width="36" height="100" fill="black" transform="translate(122,-10)" /> 
+
+      <g transform="translate(122,33)">
+         <g transform="scale(4.8,4.8)">
+            <polyline fill="black" points="-2,0 0,-2 4,0 6,4 1,12 2,4 0,2" > 
+              <animateTransform attributeName="transform" 
+                                attributeType="XML"
+                                id="mouvement1"
+                                type="rotate" 
+                                values="0 0 0; -15 0 0; 0 0 0"
+                                repeatCount="indefinite"
+                                dur="1s"/>
+            </polyline>
+         </g>
+         <g transform="scale(-4.8,4.8)">
+           <polyline fill="black" points="-2,0 0,-2 4,0 6,4 1,12 2,4 0,2" > 
+              <animateTransform attributeName="transform" 
+                                attributeType="XML"
+                                id="mouvement1"
+                                type="rotate" 
+                                values="0 0 0; -15 0 0; 0 0 0"
+                                repeatCount="indefinite"
+                                dur="1s"/>
+            </polyline>
+         </g>
+      </g>
+
+      <g transform="translate(-122,33)">
+         <g transform="scale(4.8,4.8)">
+            <polyline fill="black" points="-2,0 0,-2 4,0 6,4 1,12 2,4 0,2" > 
+              <animateTransform attributeName="transform" 
+                                attributeType="XML"
+                                id="mouvement1"
+                                type="rotate" 
+                                values="0 0 0; -15 0 0; 0 0 0"
+                                repeatCount="indefinite"
+                                dur="1s"/>
+            </polyline>
+         </g>
+         <g transform="scale(-4.8,4.8)">
+           <polyline fill="black" points="-2,0 0,-2 4,0 6,4 1,12 2,4 0,2" > 
+              <animateTransform attributeName="transform" 
+                                attributeType="XML"
+                                id="mouvement1"
+                                type="rotate" 
+                                values="0 0 0; -15 0 0; 0 0 0"
+                                repeatCount="indefinite"
+                                dur="1s"/>
+            </polyline>
+         </g>
+      </g>
+
+   </g>
+
+   <g class="yeux">
+      <g transform="translate(35,-110)">
+         <circle cx="0" cy="0" r="20" fill="white" />
+         <circle cx="0" cy="0" r="8" fill="black" />
+         <polyline fill="black" points="0,-5 0,5 15,0">
+           <animateTransform attributeName="transform" 
+                             attributeType="XML"
+                             id="mouvement1"
+                             type="rotate" 
+                             values="0 0 0; 180 0 0; 0 0 0"
+                             repeatCount="indefinite"
+                             dur="8s"/>
+         </polyline>
+         <g transform="translate(-35,-10) rotate(-25)">
+            <rect x="0" y="-10" rx="0" width="50" height="20" fill="black" >
+              <animateTransform attributeName="transform" 
+                    attributeType="XML"
+                    id="mouvement1"
+                    type="rotate" 
+                    values="0 0 0; 10 0 0; 0 0 0"
+                    repeatCount="indefinite"
+                    dur="5s"/>
+            </rect>
+         </g>
+      </g>
+
+      <g transform="translate(-35,-110) scale(-1,1)">
+         <circle cx="0" cy="0" r="20" fill="white" />
+         <circle cx="0" cy="0" r="8" fill="black" />
+         <polyline fill="black" points="0,-5 0,5 15,0">
+           <animateTransform attributeName="transform" 
+                             attributeType="XML"
+                             id="mouvement1"
+                             type="rotate" 
+                             values="180 0 0; 0 0 0; 180 0 0"
+                             repeatCount="indefinite"
+                             dur="8s"/>
+         </polyline>
+         <g transform="translate(-35,-10) rotate(-25)">
+            <rect x="0" y="-10" rx="0" width="50" height="20" fill="black" >
+              <animateTransform attributeName="transform" 
+                    attributeType="XML"
+                    id="mouvement1"
+                    type="rotate" 
+                    values="0 0 0; 10 0 0; 0 0 0"
+                    repeatCount="indefinite"
+                    dur="5s"/>
+            </rect>
+         </g>
+      </g>
+   </g>
+
+   <g class="jambes">
+      <polyline fill="black" points="1,0 1,5 2,6 2,8 -2,8 -2,6 -1,5 -1,0" transform="scale(12,9) translate(3,10)" >
+        <animateMotion path="M 0 0 V 3 Z" dur="1s" repeatCount="indefinite" />
+      </polyline>
+      <polyline fill="black" points="1,0 1,5 2,6 2,8 -2,8 -2,6 -1,5 -1,0" transform="scale(12,9) translate(-3,10)" >
+        <animateMotion path="M 0 0 V 3 Z" dur="1s" begin="0.5s" repeatCount="indefinite" />
+      </polyline> 
+   </g>
+
+</g>

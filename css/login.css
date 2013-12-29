@@ -1,0 +1,44 @@
+section.create-new-partie h2, section.login-to-partie h2{
+    font-size: 26px;
+    margin-bottom: 25px;
+    width:400px;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.login-to-partie form input[type='text'], .create-new-partie form input[type='text']{
+    margin-bottom: 15px;   
+    display: inline-block !important;
+}
+
+form select{
+    width: 216px;
+    height: 43px;
+    margin-bottom: 15px;
+}
+
+.login-to-partie label, .create-new-partie label{
+    padding-left: 20px;
+    display: inline-block;
+    width: 200px;
+}
+
+section.create-new-partie, section.login-to-partie{
+    box-shadow: -1px 2px 5px 1px rgba(0, 0, 0, 0.7);
+    margin-right: 10px;
+    height: 260px;
+    text-align: left;
+    display:inline-block;
+    width: 500px;
+    vertical-align: top;
+    margin-top: 20px;
+    border: solid 1px black;
+    border-radius: 2px;
+}
+
+#create-new-game .button, #log-game-exist .button{
+    margin-left: 297px;
+    display: none;
+}

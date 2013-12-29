@@ -1,0 +1,168 @@
+<!DOCTYPE HTML>
+<!--
+        Site en local pour le projet Rasende Robot -- Par Tarik le 10/11/2013
+-->
+<html>
+    <head>
+        <title>Rasende Robot</title>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600" rel="stylesheet" type="text/css" />
+        <!--[if lte IE 8]><script src="js/html5shiv.js"></script><![endif]-->
+        <script src="js/lib/jquery.min.js"></script>
+        <script src="js/lib/jquery.dropotron.min.js"></script>
+        <script src="js/lib/skel.min.js"></script>
+        <script src="js/lib/skel-panels.min.js"></script>
+        <script src="js/lib/init.js"></script>
+
+
+        <!--
+                Jeu - JS Kernel
+        -->
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="js/login.js"></script>
+        <script type="text/javascript" src="js/services-ajax.js"></script>
+
+        <noscript>
+        <link rel="stylesheet" href="css/skel-noscript.css" />
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/style-desktop.css" />
+        <link rel="stylesheet" href="css/style-noscript.css" />
+        </noscript>
+        <link rel="stylesheet" href="css/login.css" />
+        <!--[if lte IE 8]><link rel="stylesheet" href="css/ie8.css" /><![endif]-->
+    </head>
+    <body class="homepage" onload="init()">
+        <!-- Header -->
+        <div id="header">
+
+            <!-- Inner -->
+            <div class="inner">
+                <header>
+                    <h1><a href="#" id="logo">Rasende Robot</a></h1>
+                    <hr />
+                    <span class="byline">Le jeu de robots en ligne</span>
+                    <span id="gameReady" style="display:none;" class="byline">Le jeu est prêt</span>
+                    <progress id="progressbar" value="0" max="100"></progress>
+                    <br />
+                    <br />
+                </header>
+
+                <footer >
+                    <a style="display:none;" id="start" href="#banner" class="button circled scrolly">Start</a>
+                </footer>
+            </div>
+
+            <!-- Nav -->
+            <nav id="nav">
+                <ul>
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="#">Règles du jeu</a></li>
+                    <li><a href="#">A propos de nous</a></li>
+                </ul>
+            </nav>
+
+        </div>
+
+        <!-- Jeu -->
+        <div id="banner" >
+            <h2>Jouer à <strong>Rasende Robot</strong>.</h2>
+            <span class="byline">
+                Renseignez les champs pour lancer votre partie
+            </span>
+            <section class="create-new-partie">
+                <h2>Créer une nouvelle partie</h2>
+                <form method="POST" id="create-new-game">
+                    <label for="idGame">Nom partie</label><input type="text" name="idGame" id="idGame"/>
+                    <label for="login">Nom joueur</label><input type="text" name="login" id="login"/>
+                    <input class="button" type="submit" value="Lancer"/>
+                </form>
+            </section>
+
+            <section class="login-to-partie">
+                <h2>Se connecter à une partie en cours</h2>
+                <form method="POST" id="log-game-exist">
+                    <label>Liste des parties</label>
+                    <select id="lesParties" name="idGame">
+                    </select>
+                    <label for="login">Nom joueur</label><input type="text" name="login" id="login"/>
+                    <input class="button" type="submit" value="Lancer"/>
+                </form>
+            </section>
+
+            <ul id="detailPartie">
+            </ul>
+
+        </div>
+    </body>
+
+
+
+
+    <script>
+        //Tarik: Ce sera mis ultérieurement dans le fichier .JS adéquat
+
+        $(document).ready(function() {
+            
+            //ProgressBar
+            var progressbar = $('#progressbar'),
+                    max = progressbar.attr('max'),
+                    time = (200 / max) * 5,
+                    value = progressbar.val();
+
+            var loading = function() {
+                value += 1;
+                addValue = progressbar.val(value);
+
+                $('.progress-value').html(value + '%');
+
+                if (value == max)
+                {
+                    clearInterval(animate);
+                    $("#progressbar").hide("fast");
+                    $('#gameReady').show("slow");
+                    $("#start").show("fast");
+                }
+            };
+            var animate = setInterval(function() {
+                loading();
+            }, time);
+
+            //Modifs Rémi du 27/12
+            //Form 	
+            var $inputsCreateNewGame = $("#create-new-game input[type=text]");
+            var $inputsLogGameExist = $("#log-game-exist input[type=text]");
+
+            function checkEmptyInputs(inputs) {
+                for (var i = 0; i < inputs.length; i++) {
+                    if ($(inputs[i]).val() === "")
+                        return true;
+                }
+                return false;
+            }
+
+            $inputsCreateNewGame.on("keyup", function(e) {
+                if (!checkEmptyInputs($inputsCreateNewGame)) {
+                    $("#create-new-game .button").show("slow");
+                }
+                else {
+                    $("#create-new-game .button").hide("slow");
+                }
+            });
+
+            $inputsLogGameExist.on("keyup", function(e) {
+                if (!checkEmptyInputs($inputsLogGameExist)) {
+                    $("#log-game-exist .button").show("slow");
+                }
+                else {
+                    $("#log-game-exist .button").hide("slow");
+                }
+            });
+             
+        });
+
+
+    </script>
+</html>

@@ -1,0 +1,76 @@
+body{
+    font-family: "Helvetica";
+}
+header{
+    margin-bottom: 20px;
+}
+
+header .title{
+    display: inline-block;
+    /*border: 2px solid black;
+    border-radius: 5px;*/
+    width: 500px;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+}
+
+header .participants{
+    display: inline-block;
+    vertical-align: top;
+    width: 300px;
+    /*border-radius: 5px;
+    border: 2px solid black;*/
+}
+
+footer{
+    border: 2px solid black;
+    border-radius: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+footer i{
+    display: block;
+    width: 300px;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+}
+
+#mainDiv{
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 500px;
+}
+
+/* Mac 13 pouces */
+@media only screen and (min-width : 1225px) and (max-width : 1365px) {
+    #mainDiv{
+        width: 1225px;
+    }
+}
+
+/* Mac 15 pouces */
+@media only screen and (min-width : 1366px) and (max-width : 1679px) {
+    #mainDiv {
+        width: 1366px;
+    }
+}
+
+/* Big screen */
+@media only screen and (min-width : 1680px) and (max-width: 1919px) {
+    #mainDiv {
+        width: 1680px;
+    }
+}
+
+/* Full HD */
+@media only screen and (min-width : 1920px) {
+    #mainDiv {
+        width: 1919px;
+    }
+}
+
