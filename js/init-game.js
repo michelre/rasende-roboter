@@ -1,13 +1,9 @@
 (function initEvents() {
-    // $("#connect_partie").on("click", function() {
     var partieURL = "http://"+SA.endpoint+":8090/" + $('#idGame').val();
     getData(partieURL, initGame);
-    //});
 })();
 
 function initGame(data) {
-    //$("svg").attr("width", $(window).width() - 100);
-    //$("svg").attr("height", $(window).height() - 100);
     drawGrid(data["board"]);
     drawTarget(data["target"]);
     drawRobots(data["robots"]);
@@ -22,23 +18,11 @@ function drawGrid(boards) {
     }
 }
 
-function drawCase(board, x, y) {
-
-    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
-    {
-        screenWidth = "640"
-        screenHeight = "480"
-    } else {
-        screenWidth = "860"
-        screenHeight = "640"
-    }
-
-    var width = screenWidth / 16;
-    var height = screenHeight / 16;
-
-    //var width = parseInt($("svg").attr("width")) / 16;
-    //var height = parseInt($("svg").attr("height")) / 16;
-
+function drawCase(board, x, y) 
+{
+	//Tarik: 	Responsive au chargement [C'est déjà un grand pas]
+    var width 	= ($(window).width()-100) / 16;
+    var height 	= ($(window).height()-100) / 16;
 
     var g = $(createSVGNode("g"));
     var caseOfGrid = createSVGNode("rect", {opacity: "0.2", 'data-coord': x + '-' + y, 'width': width, 'height': height, 'x': x * width, 'y': y * height, 'stroke-width': 2, 'stroke': 'black', "stroke-opacity": "0.8", 'fill': 'white'});

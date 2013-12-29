@@ -38,39 +38,7 @@ footer i{
     text-align: center;
 }
 
-#mainDiv{
-    margin-right: auto;
-    margin-left: auto;
-    margin-top: 10px;
-    margin-left: 10px;
-    width: 500px;
-}
 
-/* Mac 13 pouces */
-@media only screen and (min-width : 1225px) and (max-width : 1365px) {
-    #mainDiv{
-        width: 1225px;
-    }
-}
 
-/* Mac 15 pouces */
-@media only screen and (min-width : 1366px) and (max-width : 1679px) {
-    #mainDiv {
-        width: 1366px;
-    }
-}
 
-/* Big screen */
-@media only screen and (min-width : 1680px) and (max-width: 1919px) {
-    #mainDiv {
-        width: 1680px;
-    }
-}
-
-/* Full HD */
-@media only screen and (min-width : 1920px) {
-    #mainDiv {
-        width: 1919px;
-    }
-}
 
