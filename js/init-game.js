@@ -1,5 +1,5 @@
 (function initEvents() {
-    var partieURL = "http://"+SA.endpoint+":8090/" + $('#idGame').val();
+    var partieURL = "http://"+SA.endpoint+"/" + $('#idGame').val();
     getData(partieURL, initGame);
 })();
 
@@ -97,4 +97,9 @@ function drawTarget(target) {
     var height = caseOfGrid.attr("height");
 
     g.append(getTarget(x, y, width, height, target.t));
+}
+    var points = getPolygonePoints(caseOfGrid);
+    var stringPoints = points.p1.x + "," + points.p1.y + " " + points.p2.x + "," + points.p2.y + " " + points.p3.x + "," + points.p3.y + " " + points.p4.x + "," + points.p4.y + " " + points.p5.x + "," + points.p5.y + " " + points.p6.x + "," + points.p6.y;
+    var svgTarget = createSVGNode("polygon", {points: stringPoints, fill: target.t});
+    g.append(svgTarget);
 }
