@@ -1,5 +1,5 @@
 (function initEvents() {
-    var partieURL = "http://"+SA.endpoint+":8090/" + $('#idGame').val();
+    var partieURL = "http://"+SA.endpoint+"/" + $('#idGame').val();
     getData(partieURL, initGame);
 })();
 
