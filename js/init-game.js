@@ -20,9 +20,26 @@ function drawGrid(boards) {
 
 function drawCase(board, x, y) 
 {
-	//Tarik: 	Responsive au chargement [C'est déjà un grand pas]
-    var width 	= ($(window).width()-100) / 16;
-    var height 	= ($(window).height()-100) / 16;
+	/*Tarik: 	Responsive au chargement [C'est déjà un grand pas]*/
+	
+	//Pour iPhone et autres "petiteries"
+	var width_petiteMargin = 30; 
+	var height_petiteMargin = 50; 
+	
+	//Pour les vrais Devices de bonhomme	
+	var width_largeMargin  = 160; 
+	var height_largeMargin  = 15; 
+	if ($(window).width() < 500)
+	{
+		var width 	= ($(window).width()-width_petiteMargin) / 16;
+		var height 	= ($(window).height()-height_petiteMargin) / 16;
+		
+	} else
+	{
+		var width 	= ($(window).width()-width_largeMargin) / 16;
+		var height 	= ($(window).height()-height_largeMargin) / 16;
+	}
+    
 
     var g = $(createSVGNode("g"));
     var caseOfGrid = createSVGNode("rect", {opacity: "0.2", 'data-coord': x + '-' + y, 'width': width, 'height': height, 'x': x * width, 'y': y * height, 'stroke-width': 2, 'stroke': 'black', "stroke-opacity": "0.8", 'fill': 'white'});
@@ -51,23 +68,33 @@ function drawRobots(robots) {
         var dataCoord = robots[i].column + "-" + robots[i].line;
         var caseOfGrid = $("rect[data-coord='" + dataCoord + "']");
         var g = caseOfGrid.parent();
-        var xCircle = parseInt(caseOfGrid.attr("x")) + (parseInt(caseOfGrid.attr("width")) / 2);
-        var yCircle = parseInt(caseOfGrid.attr("y")) + (parseInt(caseOfGrid.attr("height")) / 2);
-        var rCircle = (parseInt(caseOfGrid.attr("width")) + parseInt(caseOfGrid.attr("height"))) / 8;
-        var circle = createSVGNode("circle", {"opacity": "1", cx: xCircle, cy: yCircle, 'r': rCircle, 'data-fill': robots[i].color, 'fill': robots[i].color, 'stroke-width': '2', stroke: 'black'})
-        var animateXNode = createSVGNode("animate", {"attributeName": "cx", "begin": "moveRobot", "dur": "0.5s"});
-        var animateYNode = createSVGNode("animate", {"attributeName": "cy", "begin": "moveRobot", "dur": "0.5s"});
-        circle.appendChild(animateXNode);
-        circle.appendChild(animateYNode);
-        g.append(circle);
+        //var xCircle = parseInt(caseOfGrid.attr("x")) + (parseInt(caseOfGrid.attr("width")) / 2);
+        //var yCircle = parseInt(caseOfGrid.attr("y")) + (parseInt(caseOfGrid.attr("height")) / 2);
+        //var rCircle = (parseInt(caseOfGrid.attr("width")) + parseInt(caseOfGrid.attr("height"))) / 8;
+        //var circle = createSVGNode("circle", {"opacity": "1", cx: xCircle, cy: yCircle, 'r': rCircle, 'data-fill': robots[i].color, 'fill': robots[i].color, 'stroke-width': '2', stroke: 'black'})
+        // var animateXNode = createSVGNode("animate", {"attributeName": "cx", "begin": "moveRobot", "dur": "0.5s"});
+        //var animateYNode = createSVGNode("animate", {"attributeName": "cy", "begin": "moveRobot", "dur": "0.5s"});
+        //circle.appendChild(animateXNode);
+        //circle.appendChild(animateYNode);
+        //g.append(circle);
+        
+        var x = parseInt(caseOfGrid.attr("x")) + (parseInt(caseOfGrid.attr("width")) / 2);
+        var y = parseInt(caseOfGrid.attr("y")) + (parseInt(caseOfGrid.attr("height")) / 2);
+        var width = caseOfGrid.attr("width");
+        var height = caseOfGrid.attr("height");
+
+        g.append(getRobot(x, y, width, height, robots[i].color));  
     }
 }
 
 function drawTarget(target) {
     var caseOfGrid = $("rect[data-coord='" + target.c + "-" + target.l + "']");
     var g = caseOfGrid.parent();
-    var points = getPolygonePoints(caseOfGrid);
-    var stringPoints = points.p1.x + "," + points.p1.y + " " + points.p2.x + "," + points.p2.y + " " + points.p3.x + "," + points.p3.y + " " + points.p4.x + "," + points.p4.y + " " + points.p5.x + "," + points.p5.y + " " + points.p6.x + "," + points.p6.y;
-    var svgTarget = createSVGNode("polygon", {points: stringPoints, fill: target.t});
-    g.append(svgTarget);
+    
+    var x = parseInt(caseOfGrid.attr("x")) + (parseInt(caseOfGrid.attr("width")) / 2);
+    var y = parseInt(caseOfGrid.attr("y")) + (parseInt(caseOfGrid.attr("height")) / 2);
+    var width = caseOfGrid.attr("width");
+    var height = caseOfGrid.attr("height");
+
+    g.append(getTarget(x, y, width, height, target.t));
 }

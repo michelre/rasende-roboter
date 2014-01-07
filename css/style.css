@@ -150,6 +150,7 @@ header .byline
 footer
 {
 margin: 2.5em 0 0 0;
+box-shadow: 10px 10px 10px 10px #888888;
 }
 
 hr
@@ -1443,14 +1444,26 @@ color: rgba(128,128,128,0.75);
 color: rgba(212,212,212,0.85);
 }
 
-#headerBar1 {
-    height: 40px;
-    background: black;
-    width: 100%;
-    margin-left: auto;
+#mainSection
+{
+	border-right: 144px solid black;
+	box-shadow: 10px 10px 10px 5px #888888;
 }
 
-#gameInfos_link {
-	color: white;
+#rightSide
+{
+	color:white;
+	position:fixed;
+	right: 25px;
+	
 }
 
+.WithoutZePuce
+{
+	list-style-type:none; 
+}
+
+#connectedAs
+{
+	margin-left:10px;
+}

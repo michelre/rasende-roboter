@@ -24,9 +24,13 @@ var colorAlreadySelected = {
 }
 
 function initDeplacementEvent() {
-    $("svg").on("click", 'circle', function(e) {
-        if (e.target.getAttribute("data-fill") !== currentRobotSelected && !robotAlreadySelected[e.target.getAttribute("data-fill")])
-            clickRobotSelectAction(e.target);
+    $("svg").on("click", '.robot', function(e) {
+        if ($(e.target).parents('.robot').attr("data-fill") !== currentRobotSelected && !robotAlreadySelected[$(e.target).parents('.robot').attr("data-fill")]){
+        	if (currentRobotSelected != null) {
+        		animateRobotDestroy(currentRobotSelected);
+        	}
+        	clickRobotSelectAction(e.currentTarget);
+        }
     });
 }
 ;
@@ -48,9 +52,9 @@ function clickRobotSelectAction(selectedRobot) {
 
 function clickRobotMoveAction(aimedPositions) {
     currentBindPositions = aimedPositions;
-    $("rect").attr("fill", 'white');
-    $("rect").attr("opacity", '0.2');
-    $("rect").attr("stroke-opacity", '0.8');
+    $("rect[data-coord]").attr("fill", 'white');
+    $("rect[data-coord]").attr("opacity", '0.2');
+    $("rect[data-coord]").attr("stroke-opacity", '0.8');
     for (var i = 0; i < aimedPositions.length; i++) {
         var x = aimedPositions[i].c;
         var y = aimedPositions[i].l;
@@ -81,7 +85,10 @@ function moveRobotAction(target) {
 function incompleteResponseMove(aimedPositions, target) {
     unbindRectEvent(currentBindPositions);
     clickRobotMoveAction(aimedPositions);
-    moveRobot(currentRobotSelected, target);
+    animateRobotCool(currentRobotSelected, target)
+    setTimeout(function(){
+    	currentRobotSelected = moveRobot(currentRobotSelected, target);
+    }, 500);
 }
 
 function successResponse(aimedPositions, target) {
@@ -91,7 +98,7 @@ function successResponse(aimedPositions, target) {
 }
 
 function invalidMoveResponse() {
-    alert("Déplacement interdit");
+    alert("Deplacement interdit");
 }
 
 function invalidSelectResponse() {

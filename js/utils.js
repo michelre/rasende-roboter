@@ -63,7 +63,21 @@ function getPolygonePoints(rect) {
 }
 
 function moveRobot(robot, target, callback) {
-    animateRobot(robot, target, function() {
+		var newG = target.parentNode;
+	    var coordX = target.getAttribute("x");
+	    var coordY = target.getAttribute("y");
+	    var targetWidth = target.getAttribute("width");
+	    var targetHeight = target.getAttribute("height");
+	    var oldG = robot.parentNode;
+	    var newRobot = getRobot(parseInt(coordX)+(parseInt(targetWidth)/2), parseInt(coordY)+(parseInt(targetHeight)/2), targetWidth, targetHeight, robot.getAttribute("data-fill"))
+	    oldG.removeChild(robot);
+	    newG.appendChild(newRobot);
+	    if (callback){
+	        callback();
+	    }
+	    return newRobot;
+	
+   /* animateRobot(robot, target, function() {
         var newG = target.parentNode;
         var coordX = target.getAttribute("x");
         var coordY = target.getAttribute("y");
@@ -74,12 +88,13 @@ function moveRobot(robot, target, callback) {
         var oldG = robot.parentNode;
         robot.setAttribute("cx", xCircle);
         robot.setAttribute("cy", yCircle);
+        console.log(oldGn newG, robot)
         oldG.removeChild(robot);
         newG.appendChild(robot);
         if (callback){
             callback();
         }
-    });
+    });*/
 }
 
 function animateRobot(robot, to, callback) {
@@ -92,6 +107,36 @@ function animateRobot(robot, to, callback) {
     animateYNode.setAttribute("to", parseInt(to.getAttribute("y")) + (parseInt(from.getAttribute("height")) / 2));
     robot.dispatchEvent(new Event("moveRobot"));
     setTimeout(callback, 500);
+}
+
+function animateRobotCool(robot, to){
+	var from = robot.parentNode.childNodes[0];
+	var animateMotionNode = robot.querySelector(".animateMotionMoveRobot");
+	var moveX = parseInt(to.getAttribute("x")) - parseInt(from.getAttribute("x"));
+	var moveY = parseInt(to.getAttribute("y")) - parseInt(from.getAttribute("y"));
+	animateMotionNode.setAttribute("path", 'M 0 0 L '+moveX+' '+moveY);
+	robot.dispatchEvent(new Event("moveRobot"));
+}
+
+function animateRobotDestroy(robot){
+	robot.dispatchEvent(new Event("destroyMove1"));
+
+	var collEnfants = robot.childNodes;
+	for (var i = 0; i < collEnfants.length; i++) {
+		collEnfants[i].dispatchEvent(new Event("destroyMove1"));
+		setTimeout(function(){animateRobotDestroy2(robot)},1500);
+	}
+
+}
+
+function animateRobotDestroy2(robot){
+	robot.dispatchEvent(new Event("destroyMove2"));
+
+	var collEnfants = robot.childNodes;
+	for (var i = 0; i < collEnfants.length; i++) {
+		collEnfants[i].dispatchEvent(new Event('destroyMove2'));
+	}
+
 }
 
 function unbindRectEvent(positions) {

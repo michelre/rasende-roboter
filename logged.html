@@ -17,23 +17,18 @@
     </head>
 
     <body class="homepage" onload="init()">
-        <div id="headerBar1"> 
-            <i id='gameInfos_link'>Game Informations</i> 
-        </div>
         <input id="login" type="hidden" value="__LOGIN__"/>
         <input id="idGame" type="hidden" value="__IDGAME__"/>
-
-
-        <div id='gameInfos_block' style='display:none'>
-            <li>Partie:  __IDGAME__ __STATE__</li>
-            <li>Participants:</li> 
+		<div id="rightSide">
+			<li class="WithoutZePuce">Partie:  __IDGAME__ __STATE__</li>
+            <li class="WithoutZePuce">Participants:</li> 
             <ul style='font-size:0.8em; margin-top:0px' id="lesParticipants" />
-            <div class="info-win">
+			<div class="info-win">
                 <p><span class="winner-login"></span> a gagné en <span class="winner-result"></span>coups</p>
             </div>
-        </div>
+		</div>
 
-        <section>
+        <section id="mainSection">
             <section id="partie">
                 <div id="mainDiv">
                     <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
@@ -41,14 +36,10 @@
                 </div>
             </section>
         </section>
-
-
-
         <footer>
-            <p>Vous êtes connecté en tant que <strong>__LOGIN__</strong></p>
+            <p id="connectedAs">Vous êtes connecté en tant que <strong>__LOGIN__</strong></p>
             <i>Mini-projet IHM de M2 Miage</i>
         </footer>
-
         <script>
             /*var SA = {
                 "endpoint": "88.167.71.54/"// --> A changer en fonction de l'adresse du serveur
@@ -56,10 +47,6 @@
 			var SA = {
                 "endpoint": "127.0.0.1"// --> A changer en fonction de l'adresse du serveur
             };
-            //Tarik: Ce sera mis ultérieurement dans le fichier .JS adéquat
-            $("#gameInfos_link").click(function() {
-                $("#gameInfos_block").toggle("slow");
-            });
         </script>
 
         <script src="/socket.io/socket.io.js"></script>
@@ -67,6 +54,7 @@
 
         <script type="text/javascript" src ="js/services-ajax.js"></script>
         <script type="text/javascript" src ="js/utils.js"></script>
+        <script type="text/javascript" src ="js/drawings.js"></script>
         <script type="text/javascript" src ="js/game-deplacements.js"></script>
         <script type="text/javascript" src ="js/init-game.js"></script>
     </body>
