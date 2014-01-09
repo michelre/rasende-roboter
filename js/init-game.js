@@ -1,6 +1,11 @@
 (function initEvents() {
+<<<<<<< HEAD
     var partieURL = "http://" + SA.endpoint + "/" + $('#idGame').val();
     getData(partieURL, initGame);
+=======
+      var partieURL = "http://"+SA.endpoint + "/" +$('#idGame').val();
+      getData(partieURL, initGame);
+>>>>>>> ee6c66037d6239913c05a011d8478cf536920c51
 })();
 
 function initGame(data) {
