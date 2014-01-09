@@ -10,6 +10,8 @@
         <link rel="stylesheet" href="css/grid.css" />
         <!--[if lte IE 8]><script src="js/html5shiv.js"></script><![endif]-->
         <script src="js/lib/jquery.min.js"></script>
+
+
         <noscript>
             <link rel="stylesheet" href="css/style.css" />
         </noscript>
@@ -19,21 +21,23 @@
     <body class="homepage" onload="init()">
         <input id="login" type="hidden" value="__LOGIN__"/>
         <input id="idGame" type="hidden" value="__IDGAME__"/>
-		
-		<div id="rightSide">
-			<li class="WithoutZePuce">Game:  <font color="orange">__IDGAME__ __STATE__ </font></li>
+
+        <div id="rightSide">
+            <li class="WithoutZePuce">Game:  <font color="orange">__IDGAME__ __STATE__ </font></li>
             <li class="WithoutZePuce">Participants:</li> 
             <ul id="lesParticipants" />
-			<li class="WithoutZePuce" id="nbCoups"></li> 
-			<div class="info-win">
+            <li class="WithoutZePuce" id="nbCoups"></li> 
+            <li id="voiceCommand" class="WithoutZePuce"></li>
+            <div class="info-win">
                 <p><span class="winner-login"></span> a gagné !</p>
-				<a style="font-size:0.9em;" id="restart" href="http://localhost:8090/">Recommencer ?</a>
+                <a style="font-size:0.9em;" id="restart" href="http://localhost:8090/">Recommencer ?</a>
             </div>
-			
-			<img id="coupe" style="display:none;position:absolute;" src="images/coupe.png" title="coupe"/>
-		</div>
-		
-		
+
+
+            <img id="coupe" style="display:none;position:absolute;" src="images/coupe.png" title="coupe"/>
+        </div>
+
+
         <section id="mainSection">
             <section id="partie">
                 <div id="mainDiv">
@@ -45,15 +49,13 @@
         <footer>
             <p id="connectedAs">Vous êtes connecté en tant que <strong>__LOGIN__</strong></p>
             <i>Mini-projet IHM de M2 Miage</i>
-			<!--<embed src="sons/move.wav" autostart="false" width="0" height="0" id="move" enablejavascript="true"></embed>
-			<embed src="sons/victoire.wav" autostart="false" width="0" height="0" id="victoire" enablejavascript="true"></embed>-->
         </footer>
         <script>
             /*var SA = {
-                "endpoint": "88.167.71.54/"// --> A changer en fonction de l'adresse du serveur
-            };*/
-			var SA = {
-                "endpoint": "127.0.0.1"// --> A changer en fonction de l'adresse du serveur
+             "endpoint": "88.167.71.54/"// --> A changer en fonction de l'adresse du serveur
+             };*/
+            var SA = {
+                "endpoint": "127.0.0.1:8090"// --> A changer en fonction de l'adresse du serveur
             };
         </script>
 

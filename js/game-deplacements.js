@@ -1,3 +1,24 @@
+/*
+ //Voice: Par Tarik [09/01]
+ */
+
+//VOICE INIT
+
+$(function() {
+    initRecognition();
+});
+
+function initRecognition() {
+    window.recognition = new webkitSpeechRecognition();
+    recognition.lang = "fr";
+    window.recognition.continuous = true;
+    window.recognition.start();
+}
+
+
+
+//----------------
+
 var login = "";
 var idGame = "";
 var movesHistory = [];
@@ -48,7 +69,7 @@ function clickRobotSelectAction(selectedRobot) {
     postPropostion("/proposition", login, idGame, movesHistory, function(response) {
         dealResponseSelect(response);
     });
-	playSound("/sons/switch.wav","","");
+    lanceSon("/sons/switch.wav", "", "");
 }
 var nbcoups = 0;
 function clickRobotMoveAction(aimedPositions) {
@@ -66,19 +87,18 @@ function clickRobotMoveAction(aimedPositions) {
         rect.setAttribute("fill", colorFillCase[currentRobotSelected.getAttribute("fill")]);
         rect.setAttribute("opacity", "1");
         rect.setAttribute("stroke-opacity", "0.2");
-		$("svg").on("click", "rect[data-coord=" + x + "-" + y + "]", function(e) {
+        $("svg").on("click", "rect[data-coord=" + x + "-" + y + "]", function(e) {
             moveRobotAction(e.target);
-			
-			//Tarik: Gestion NBCoups + Son déplacement;
-			var inputNBcoups = $("#nbCoups").val();
-			nbcoups = nbcoups + 1;
-			if (nbcoups == 1)
-				$("#nbCoups").append("NB Coups: " +nbcoups);
-			else
-			{
-				$( "#nbCoups" ).replaceWith( "<li class='WithoutZePuce' id='nbCoups'>NB Coups: " +nbcoups+ "</li>" );
-			}	
-			playSound("/sons/move.wav","","");
+
+            //Tarik: Gestion NBCoups + Son déplacement;
+            var inputNBcoups = $("#nbCoups").val();
+            nbcoups = nbcoups + 1;
+            if (nbcoups == 1)
+                $("#nbCoups").append("NB Coups: " + nbcoups);
+            else
+                $("#nbCoups").replaceWith("<li class='WithoutZePuce' id='nbCoups'>NB Coups: " + nbcoups + "</li>");
+
+            lanceSon("/sons/move.wav", "", "");
         });
     }
     //bindKeyEvent(rects);
@@ -108,10 +128,10 @@ function incompleteResponseMove(aimedPositions, target) {
     }, 500);
 }
 
-function incompleteResponseSelect(aimedPositions){
+function incompleteResponseSelect(aimedPositions) {
     var rects = [];
-    for(var i = 0; i < aimedPositions.length; i++){
-        var rect = $("rect[data-coord='"+aimedPositions[i].c+"-"+aimedPositions[i].l+"']")[0]
+    for (var i = 0; i < aimedPositions.length; i++) {
+        var rect = $("rect[data-coord='" + aimedPositions[i].c + "-" + aimedPositions[i].l + "']")[0]
         rects.push(rect);
     }
     bindKeyEvent(rects);
@@ -157,33 +177,71 @@ function bindKeyEvent(_rects) {
     $(document).on("keydown", function(e) {
         //key 't' for 'top'
         if (e.keyCode == 38) {
-            if(rectsByPosition["top"])
+            if (rectsByPosition["top"])
                 $(rectsByPosition["top"]).click();
-				playSound("/sons/move.wav","","");
+            lanceSon("/sons/move.wav", "", "");
         }
         //key 'b' for 'bottom'
         else if (e.keyCode == 40) {
-            if(rectsByPosition["bottom"])
+            if (rectsByPosition["bottom"])
                 $(rectsByPosition["bottom"]).click();
-				playSound("/sons/move.wav","","");
+            lanceSon("/sons/move.wav", "", "");
         }
         //key 'r' for 'right'
         else if (e.keyCode == 39) {
-            if(rectsByPosition["right"])
+            if (rectsByPosition["right"])
                 $(rectsByPosition["right"]).click();
-				playSound("/sons/move.wav","","");
+            lanceSon("/sons/move.wav", "", "");
         }
         //key 'l' for 'left'
         else if (e.keyCode == 37) {
-            if(rectsByPosition["left"])
+            if (rectsByPosition["left"])
                 $(rectsByPosition["left"]).click();
-				playSound("/sons/move.wav","","");
+            lanceSon("/sons/move.wav", "", "");
         }
     });
+    //----------------
+    //By Tarik: VOICE
+    //----------------
+
+    window.recognition.onresult = function(event) {
+        if (event.results.length > 0)
+        {
+            resVoice = event.results[event.results.length - 1][0].transcript;
+            $("#voiceCommand").empty();
+            $("#voiceCommand").append(resVoice);
+            if (resVoice == "haut" || resVoice == "en haut" || resVoice == "11" || resVoice == "top" || resVoice == "oui") {
+                if (rectsByPosition["top"])
+                    $(rectsByPosition["top"]).click();
+                lanceSon("/sons/move.wav", "", "");
+            }
+            else if (resVoice == "bas" || resVoice == "en bas" || resVoice == "bah" || resVoice == "down" || resVoice == "non") {
+                if (rectsByPosition["bottom"])
+                    $(rectsByPosition["bottom"]).click();
+                lanceSon("/sons/move.wav", "", "");
+            }
+            else if (resVoice == "droite" || resVoice == "à droite" || resVoice == "boîte" || resVoice == "right") {
+                if (rectsByPosition["right"])
+                    $(rectsByPosition["right"]).click();
+                lanceSon("/sons/move.wav", "", "");
+            }
+            else if (resVoice == "gauche" || resVoice == "à gauche" || resVoice == "bauche" || resVoice == "google" || resVoice == "bouche" || resVoice == "left") {
+                if (rectsByPosition["left"])
+                    $(rectsByPosition["left"]).click();
+                lanceSon("/sons/move.wav", "", "");
+            }
+
+        }
+        else
+            command.value = "*&#^$&@^#?";
+    };
+
+
+
 }
 
 //By Tarik
-function playSound(soundfile_ogg, soundfile_mp, soundfile_ma) {
+function lanceSon(soundfile_ogg, soundfile_mp, soundfile_ma) {
     if ("Audio" in window) {
         var a = new Audio();
         if (!!(a.canPlayType && a.canPlayType('audio/ogg; codecs="vorbis"')

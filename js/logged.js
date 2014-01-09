@@ -38,10 +38,10 @@ function init() {
 		//Par Tarik: Gestion du SON & Restart & Block SVG at end...
         $('.info-win').show("slow");
         $('.info-win .winner-login').text(data.solutions[0].player);
-		playSound("/sons/victoire.wav","","");
+		lanceSon("/sons/victoire.wav","","");
 		$('#coupe').show("slow");
         //console.log("Solutions are :\n" + JSON.stringify(data.solutions));
-		playSound("/sons/postVictoire.wav","","");
+		lanceSon("/sons/postVictoire.wav","","");
 		$("svg").off("click");
 		var blink = function() {
 			$('#restart').animate({
