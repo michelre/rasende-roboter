@@ -1,5 +1,6 @@
 body{
     font-family: "Helvetica";
+    overflow: hidden;
 }
 header{
     margin-bottom: 20px;

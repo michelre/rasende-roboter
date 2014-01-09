@@ -1454,7 +1454,7 @@ color: rgba(212,212,212,0.85);
 {
 	color:white;
 	position:fixed;
-	right: 25px;
+	right: 18px;
 	
 }
 
@@ -1466,4 +1466,10 @@ color: rgba(212,212,212,0.85);
 #connectedAs
 {
 	margin-left:10px;
+}
+
+#lesParticipants
+{
+	font-size:0.8em; 
+	margin-top:0px
 }

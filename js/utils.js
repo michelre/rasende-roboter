@@ -45,102 +45,122 @@ function getCoordBoards(xRect, yRect, widthRect, heightRect, board) {
     return arrayLines;
 }
 
-function getPolygonePoints(rect) {
-    var a1 = {x: parseInt(rect.attr("x")), y: parseInt(rect.attr("y"))};
-    var a2 = {x: parseInt(rect.attr("x")) + parseInt(rect.attr("width")), y: parseInt(rect.attr("y"))};
-    var a3 = {x: a2.x, y: a2.y + parseInt(rect.attr("height"))};
-    var a4 = {x: a1.x, y: a3.y};
-    var widthPolygon = parseInt(rect.attr("width")) / 2;
-    var heightPolygon = parseInt(rect.attr("height"));
-
-    var p1 = {x: (a1.x + a2.x) / 2, y: a1.y};
-    var p2 = {x: (p1.x + (widthPolygon / 2)), y: p1.y + (heightPolygon / 3)};
-    var p3 = {x: p2.x, y: p2.y + (heightPolygon / 3)};
-    var p4 = {x: p1.x, y: a3.y};
-    var p5 = {x: p3.x - widthPolygon, y: p3.y};
-    var p6 = {x: p5.x, y: p2.y};
-    return {"p1": p1, "p2": p2, "p3": p3, "p4": p4, "p5": p5, "p6": p6}
-}
-
 function moveRobot(robot, target, callback) {
-		var newG = target.parentNode;
-	    var coordX = target.getAttribute("x");
-	    var coordY = target.getAttribute("y");
-	    var targetWidth = target.getAttribute("width");
-	    var targetHeight = target.getAttribute("height");
-	    var oldG = robot.parentNode;
-	    var newRobot = getRobot(parseInt(coordX)+(parseInt(targetWidth)/2), parseInt(coordY)+(parseInt(targetHeight)/2), targetWidth, targetHeight, robot.getAttribute("data-fill"))
-	    oldG.removeChild(robot);
-	    newG.appendChild(newRobot);
-	    if (callback){
-	        callback();
-	    }
-	    return newRobot;
-	
-   /* animateRobot(robot, target, function() {
-        var newG = target.parentNode;
-        var coordX = target.getAttribute("x");
-        var coordY = target.getAttribute("y");
-        var targetWidth = target.getAttribute("width");
-        var targetHeight = target.getAttribute("height");
-        var xCircle = parseInt(coordX) + (targetWidth / 2);
-        var yCircle = parseInt(coordY) + (targetHeight / 2);
-        var oldG = robot.parentNode;
-        robot.setAttribute("cx", xCircle);
-        robot.setAttribute("cy", yCircle);
-        console.log(oldGn newG, robot)
-        oldG.removeChild(robot);
-        newG.appendChild(robot);
-        if (callback){
-            callback();
-        }
-    });*/
+    var newG = target.parentNode;
+    var coordX = target.getAttribute("x");
+    var coordY = target.getAttribute("y");
+    var targetWidth = target.getAttribute("width");
+    var targetHeight = target.getAttribute("height");
+    var oldG = robot.parentNode;
+    var newRobot = getRobot(parseInt(coordX) + (parseInt(targetWidth) / 2), parseInt(coordY) + (parseInt(targetHeight) / 2), targetWidth, targetHeight, robot.getAttribute("data-fill"))
+    oldG.removeChild(robot);
+    newG.appendChild(newRobot);
+    if (callback) {
+        callback();
+    }
+    return newRobot;
 }
 
-function animateRobot(robot, to, callback) {
+function animateRobot(robot, to) {
     var from = robot.parentNode.childNodes[0];
-    var animateXNode = robot.querySelector("animate[attributeName='cx']");
-    var animateYNode = robot.querySelector("animate[attributeName='cy']");
-    animateXNode.setAttribute("from", parseInt(from.getAttribute("x")) + (parseInt(from.getAttribute("width")) / 2));
-    animateXNode.setAttribute("to", parseInt(to.getAttribute("x")) + (parseInt(from.getAttribute("width")) / 2));
-    animateYNode.setAttribute("from", parseInt(from.getAttribute("y")) + (parseInt(from.getAttribute("height")) / 2));
-    animateYNode.setAttribute("to", parseInt(to.getAttribute("y")) + (parseInt(from.getAttribute("height")) / 2));
+    var animateMotionNode = robot.querySelector(".animateMotionMoveRobot");
+    var moveX = parseInt(to.getAttribute("x")) - parseInt(from.getAttribute("x"));
+    var moveY = parseInt(to.getAttribute("y")) - parseInt(from.getAttribute("y"));
+    animateMotionNode.setAttribute("path", 'M 0 0 L ' + moveX + ' ' + moveY);
     robot.dispatchEvent(new Event("moveRobot"));
-    setTimeout(callback, 500);
 }
 
-function animateRobotCool(robot, to){
-	var from = robot.parentNode.childNodes[0];
-	var animateMotionNode = robot.querySelector(".animateMotionMoveRobot");
-	var moveX = parseInt(to.getAttribute("x")) - parseInt(from.getAttribute("x"));
-	var moveY = parseInt(to.getAttribute("y")) - parseInt(from.getAttribute("y"));
-	animateMotionNode.setAttribute("path", 'M 0 0 L '+moveX+' '+moveY);
-	robot.dispatchEvent(new Event("moveRobot"));
-}
+function animateRobotDestroy(robot) {
+    robot.dispatchEvent(new Event("destroyMove1"));
 
-function animateRobotDestroy(robot){
-	robot.dispatchEvent(new Event("destroyMove1"));
-
-	var collEnfants = robot.childNodes;
-	for (var i = 0; i < collEnfants.length; i++) {
-		collEnfants[i].dispatchEvent(new Event("destroyMove1"));
-		setTimeout(function(){animateRobotDestroy2(robot)},1500);
-	}
+    var collEnfants = robot.childNodes;
+    for (var i = 0; i < collEnfants.length; i++) {
+        collEnfants[i].dispatchEvent(new Event("destroyMove1"));
+        setTimeout(function() {
+            animateRobotDestroy2(robot)
+        }, 1500);
+    }
 
 }
 
-function animateRobotDestroy2(robot){
-	robot.dispatchEvent(new Event("destroyMove2"));
+function animateRobotDestroy2(robot) {
+    robot.dispatchEvent(new Event("destroyMove2"));
 
-	var collEnfants = robot.childNodes;
-	for (var i = 0; i < collEnfants.length; i++) {
-		collEnfants[i].dispatchEvent(new Event('destroyMove2'));
-	}
+    var collEnfants = robot.childNodes;
+    for (var i = 0; i < collEnfants.length; i++) {
+        collEnfants[i].dispatchEvent(new Event('destroyMove2'));
+    }
 
 }
 
 function unbindRectEvent(positions) {
     for (var i = 0; i < positions.length; i++) {
         $("svg").off("click", "rect[data-coord=" + positions[i].c + "-" + positions[i].l + "]");
+        $(document).off("keydown")
     }
+}
+
+function getRectsByPosition(rects, coordRobot) {
+    var coordRobotSplit = coordRobot.split("-");
+    var xRobot = coordRobotSplit[0];
+    var yRobot = coordRobotSplit[1];
+    var rectsByPosition = {
+        top: getTopRect(rects, parseInt(xRobot), parseInt(yRobot)),
+        bottom: getBottomRect(rects, parseInt(xRobot), parseInt(yRobot)),
+        right: getRightRect(rects, parseInt(xRobot), parseInt(yRobot)),
+        left: getLeftRect(rects, parseInt(xRobot), parseInt(yRobot))
+    };
+    return rectsByPosition;
+}
+
+function getTopRect(rects, xRobot, yRobot) {
+    var topRect = null;
+    for (var i = 0; i < rects.length; i++) {
+        var rectSplit = rects[i].getAttribute("data-coord").split("-")
+        var x = parseInt(rectSplit[0]);
+        var y = parseInt(rectSplit[1]);
+        if (y < yRobot && xRobot === x) {
+            topRect = rects[i];
+        }
+    }
+    return topRect;
+}
+
+function getBottomRect(rects, xRobot, yRobot) {
+    var bottomRect = null;
+    for (var i = 0; i < rects.length; i++) {
+        var rectSplit = rects[i].getAttribute("data-coord").split("-")
+        var x = parseInt(rectSplit[0]);
+        var y = parseInt(rectSplit[1]);
+        if (y > yRobot && xRobot === x) {
+            bottomRect = rects[i];
+        }
+    }
+    return bottomRect;
+}
+
+function getRightRect(rects, xRobot, yRobot) {
+    var rightRect = null;
+    for (var i = 0; i < rects.length; i++) {
+        var rectSplit = rects[i].getAttribute("data-coord").split("-")
+        var x = parseInt(rectSplit[0]);
+        var y = parseInt(rectSplit[1]);
+        if (x > xRobot && y === yRobot) {
+            rightRect = rects[i];
+        }
+    }
+    return rightRect;
+}
+
+function getLeftRect(rects, xRobot, yRobot) {
+    var leftRect = null;
+    for (var i = 0; i < rects.length; i++) {
+        var rectSplit = rects[i].getAttribute("data-coord").split("-")
+        var x = parseInt(rectSplit[0]);
+        var y = parseInt(rectSplit[1]);
+        if (x < xRobot && y === yRobot) {
+            leftRect = rects[i];
+        }
+    }
+    return leftRect;
 }

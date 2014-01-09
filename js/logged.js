@@ -31,13 +31,28 @@ function init() {
     });
     socket.on('TerminateGame', function(data) {
         h1 = document.querySelector('body > header > h1');
-        h1.innerHTML += ' est terminée !';
+        h1.innerHTML += 'GAME OVER';
     });
-    socket.on('solutions', function(data) {
-        $('.info-win').css("display", "inline-block");
+    socket.on('solutions', function(data) 
+	{
+		//Par Tarik: Gestion du SON & Restart & Block SVG at end...
+        $('.info-win').show("slow");
         $('.info-win .winner-login').text(data.solutions[0].player);
-        $(".info-win .winner-result").text(data.solutions[0].propositions.length)
-        console.log("Solutions are :\n" + JSON.stringify(data.solutions));
+		playSound("/sons/victoire.wav","","");
+		$('#coupe').show("slow");
+        //console.log("Solutions are :\n" + JSON.stringify(data.solutions));
+		playSound("/sons/postVictoire.wav","","");
+		$("svg").off("click");
+		var blink = function() {
+			$('#restart').animate({
+				opacity: '0'
+			}, function(){
+				$(this).animate({
+					opacity: '1'
+				}, blink);
+			});
+		}
+		blink();
     });
     socket.emit('identification', {login: document.getElementById('login').value
         , idGame: document.getElementById('idGame').value}
