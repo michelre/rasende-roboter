@@ -101,7 +101,6 @@ function clickRobotMoveAction(aimedPositions) {
             lanceSon("/sons/move.wav", "", "");
         });
     }
-    //bindKeyEvent(rects);
 }
 
 function moveRobotAction(target) {
@@ -175,25 +174,21 @@ function bindKeyEvent(_rects) {
     var rects = (_rects) ? (_rects) : $("rect[fill^='#']");
     var rectsByPosition = getRectsByPosition(rects, coordRobot)
     $(document).on("keydown", function(e) {
-        //key 't' for 'top'
         if (e.keyCode == 38) {
             if (rectsByPosition["top"])
                 $(rectsByPosition["top"]).click();
             lanceSon("/sons/move.wav", "", "");
         }
-        //key 'b' for 'bottom'
         else if (e.keyCode == 40) {
             if (rectsByPosition["bottom"])
                 $(rectsByPosition["bottom"]).click();
             lanceSon("/sons/move.wav", "", "");
         }
-        //key 'r' for 'right'
         else if (e.keyCode == 39) {
             if (rectsByPosition["right"])
                 $(rectsByPosition["right"]).click();
             lanceSon("/sons/move.wav", "", "");
         }
-        //key 'l' for 'left'
         else if (e.keyCode == 37) {
             if (rectsByPosition["left"])
                 $(rectsByPosition["left"]).click();
